@@ -58,16 +58,42 @@ fi
 if [ "$release" == "Snapshot" ]; then
     echo "Release appendage is snapshot"
     ADDED="-snapshot" 
+
+    NEWMAJ=$MAJ
+    NEWMIN=$MIN
+    NEWPAT=$PAT
 fi
 
 if [ "$release" == "RC" ]; then
-       echo "Release appendage is release candidate(rc)"
-       APPTYPE="-rc."
+    echo "Release appendage is release candidate(rc)"
+    APPTYPE="-rc."
+
     if [ -z "$APPEND" ]; then
         NEWAPPEND=1
     else
         NEWAPPEND=$(($APPEND + 1))
     fi
+
+    echo "Is this a Major or Minor Release candidate?"
+    select rc in Major Minor quit
+    do
+        if [ "$rc" != "" ]; then
+            echo "Release Candidate Type Selected: $rc"
+            if [ "$rc" == "Major" ]; then
+                echo "Major update"
+                NEWMAJ=$(($MAJ + 1))   
+                NEWMIN=0
+                NEWPAT=0
+            fi
+            if [ "$rc" == "Minor" ]; then
+                echo "Minor update"
+                NEWMAJ=$MAJ
+                NEWMIN=$(($MIN + 1))
+                NEWPAT=0
+            fi
+            break;
+        fi
+    done
 
     ADDED="$APPTYPE$NEWAPPEND"
 fi
@@ -76,7 +102,7 @@ fi
 if [ -z "$ADDED" ]; then
    NEWVER=$(echo "v${NEWMAJ}.${NEWMIN}.${NEWPAT}")   
 else
-   NEWVER=$(echo "v${MAJ}.${MIN}.${PAT}${ADDED}") 
+   NEWVER=$(echo "v${NEWMAJ}.${NEWMIN}.${NEWPAT}${ADDED}") 
 fi
 
 echo "The build-info.yml version is $VERSION and the update is going to be to $NEWVER"
