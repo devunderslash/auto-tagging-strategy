@@ -21,6 +21,8 @@ MIN="$(cut -d'.' -f2 <<<$TAGNUMS)"
 PAT="$(cut -d'.' -f3 <<<$TAGNUMS | cut -d'-' -f1)"
 APPEND="$(cut -d'.' -f4 <<<$TAGNUMS | cut -d'-' -f1)"
 
+echo $APPEND
+
 #Select release type
 echo "Select Release Type"
 select release in Major Minor Patch RC Snapshot quit
@@ -36,16 +38,28 @@ done
 # Set new SemVer Version number
 if [ "$release" == "Major" ]; then
     echo "Major update"
-    NEWMAJ=$(($MAJ + 1))
-    NEWMIN=0
-    NEWPAT=0
+    if [ -z "$APPEND"]; then
+        NEWMAJ=$(($MAJ + 1))
+        NEWMIN=0
+        NEWPAT=0
+    else
+        NEWMAJ=$MAJ
+        NEWMIN=$MIN 
+        NEWPAT=$PAT
+    fi
 fi
 
 if [ "$release" == "Minor" ]; then
     echo "Minor update"
-    NEWMAJ=$MAJ
-    NEWMIN=$(($MIN + 1))
-    NEWPAT=0
+    if [ -z "$APPEND" ]; then
+        NEWMAJ=$MAJ
+        NEWMIN=$(($MIN + 1))
+        NEWPAT=0
+    else
+        NEWMAJ=$MAJ
+        NEWMIN=$MIN
+        NEWPAT=$PAT
+    fi
 fi
 
 if [ "$release" == "Patch" ]; then
@@ -55,6 +69,7 @@ if [ "$release" == "Patch" ]; then
     NEWPAT=$(($PAT + 1))
 fi
 
+# Set snapshot version
 if [ "$release" == "Snapshot" ]; then
     echo "Release appendage is snapshot"
     ADDED="-snapshot" 
@@ -64,6 +79,7 @@ if [ "$release" == "Snapshot" ]; then
     NEWPAT=$PAT
 fi
 
+#RC version update step
 if [ "$release" == "RC" ]; then
     echo "Release appendage is release candidate(rc)"
     APPTYPE="-rc."
@@ -105,8 +121,8 @@ else
    NEWVER=$(echo "v${NEWMAJ}.${NEWMIN}.${NEWPAT}${ADDED}") 
 fi
 
+# build-info.yml update
 echo "The build-info.yml version is $VERSION and the update is going to be to $NEWVER"
-
 echo "Would you like to update build-info.yml from $VERSION to $NEWVER?"
 select update in Yes No quit
 do
@@ -121,10 +137,9 @@ do
     fi
 done
 
-
+# Enter commit message
 echo "Enter a commit message:"
 read message
-
 
 echo "Commit message is: "$message" and tag is $NEWVER. Do you want to continue?" 
 select confirm in Yes No quit
