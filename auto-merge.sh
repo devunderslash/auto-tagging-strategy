@@ -46,10 +46,4 @@ release-3)
 
   git checkout $CURRENT_BRANCH
   ;;
-release-3)
-  git checkout main 
-  git merge release-3
-
-  git checkout $CURRENT_BRANCH
-  ;;
 esac
