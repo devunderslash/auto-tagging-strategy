@@ -1,4 +1,4 @@
 ---
 name: Testing Build yml Update
 title: Testing effectiveness of build update, tag and push script
-version: v3.5.6
+version: v6.5.6-rc.3
