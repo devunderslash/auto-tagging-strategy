@@ -12,6 +12,7 @@ You can get the {hash}-{timestamp} from running `docker ps`
 
 If you want to get into the container then run the following:
 
+<<<<<<< HEAD
 `docker exec -it {container-name} bash`
 
 
@@ -19,3 +20,6 @@ This will be updated
 
 This will be updated and it's contentious
 
+=======
+`docker exec -it {container-name} bash`
+>>>>>>> release-1
