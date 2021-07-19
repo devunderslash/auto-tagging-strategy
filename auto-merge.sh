@@ -12,30 +12,37 @@ case $CURRENT_BRANCH in
 release-1)
   git checkout release-1
   git merge --no-edit --no-ff $CURRENT_BRANCH
+  git push
 
   git checkout release-2 
   git merge --no-edit --no-ff release-1
+  git push
 
   git checkout release-3 
   git merge --no-edit --no-ff release-2
+  git push
 
   git checkout main 
   git merge --no-edit --no-ff release-3
+  git push
 
   git checkout $CURRENT_BRANCH
   ;;
 release-2)
   git checkout release-2 
   git merge --no-edit --no-ff release-1
+  git push
 
   git checkout main
   git merge --no-edit --no-ff release-2
+  git push
   
   git checkout $CURRENT_BRANCH
   ;;
 release-3)
   git checkout main 
   git merge --no-edit --no-ff release-3
+  git push
 
   git checkout $CURRENT_BRANCH
   ;;
