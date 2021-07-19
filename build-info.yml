@@ -1,4 +1,8 @@
 ---
 name: Testing Build yml Update
 title: Testing effectiveness of build update, tag and push script
+<<<<<<< HEAD
 version: v2.0.0
+=======
+version: v1.0.7
+>>>>>>> release-1
