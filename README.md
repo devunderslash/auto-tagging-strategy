@@ -14,4 +14,4 @@ If you want to get into the container then run the following:
 
 `docker exec -it {container-name} bash`
 
-This will be updated
+This will be updated and it's contentious
