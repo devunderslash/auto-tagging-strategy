@@ -14,8 +14,3 @@ If you want to get into the container then run the following:
 
 `docker exec -it {container-name} bash`
 
-<<<<<<< HEAD
-This is release branch 2.0.0
-=======
-This is release-1 branch
->>>>>>> release-1
