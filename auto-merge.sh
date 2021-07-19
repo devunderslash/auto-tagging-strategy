@@ -1,4 +1,8 @@
 #!/bin/sh
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5b0a13943566dae27e0b5744b5cd7a7dd4207d16
 # Automatically merge the last commit through the following branches:
 # 2.1 -} 2.2 -} 2.3 -} master
 
