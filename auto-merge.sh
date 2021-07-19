@@ -1,5 +1,4 @@
 #!/bin/sh
-
 # Automatically merge the last commit through the following branches:
 # 2.1 -} 2.2 -} 2.3 -} master
 
