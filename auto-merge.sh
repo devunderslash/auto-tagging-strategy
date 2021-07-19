@@ -19,6 +19,7 @@ release-1)
   git checkout main 
   git merge release-2
 
+<<<<<<< HEAD
   git checkout $CURRENT_BRANCH
   ;;
 release-2)
@@ -28,6 +29,23 @@ release-2)
   git checkout main
   git merge release-2
   
+=======
+  git checkout $CURRENT_BRANCH
+  ;;
+release-2)
+  git checkout release-2 
+  git merge release-1
+
+  git checkout main
+  git merge release-2
+  
+  git checkout $CURRENT_BRANCH
+  ;;
+release-3)
+  git checkout main 
+  git merge release-3
+
+>>>>>>> release-1
   git checkout $CURRENT_BRANCH
   ;;
 esac
