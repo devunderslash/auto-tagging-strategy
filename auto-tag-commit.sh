@@ -1,5 +1,4 @@
 #!/bin/bash  
-
 # The following script is for committing, tagging and pushing code. 
 # Once you git add, you can then run this and it will update the build-info and tag before pushing.
 
