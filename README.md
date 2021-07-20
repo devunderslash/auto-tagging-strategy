@@ -21,6 +21,11 @@ The above code (--follow-tags) allows us to tag on a feature branch outside of t
 
 The `auto-merge.sh` script wiil run a cascading merge from the oldest branch (release-1) to the newest branch (release-3) and then into master. This was to test how hotfixes can be automated to update each branch in a cascading fashion. This will reduce the need for this to be carried out manually and also in turn reduce the possibility of human error.
 
+The .gitattributes needs to have the following line `build-info.yml merge=ours` coupled with the following global git config `merge.ours.name=build-info.yml` so that the build Version number of each release branch is not overridden. This can be set by running the following in terminal:
+```
+git config --global merge.ours.name=build-info.yml
+```
+
 ## Auto tagging docker images
 
 The `docker-build.sh` script will automatically tag a docker image with the commit hash and timestmp. This is to help with the automated build of docker images.
