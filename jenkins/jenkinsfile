@@ -1,0 +1,24 @@
+// Declarative //
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+             when { tag "v*" }
+            steps {
+                echo 'Deploying only because this commit is tagged...'
+                sh 'make deploy'
+            }
+        }
+    }
+}
