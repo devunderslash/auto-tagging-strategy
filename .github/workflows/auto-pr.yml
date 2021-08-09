@@ -15,7 +15,15 @@ jobs:
       with:
         destination_branch: "main"
         github_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: pull-request to release
+  release_pull_request:
+    runs-on: ubuntu-latest
+    name: Cascade PR
+    steps:
+    - name: checkout
+      uses: actions/checkout@v1
+    - name: Create PR to branch
+      uses: gorillio/github-action-cherry-pick@master
       with:
-        destination_branch: "release-2"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_branch: 'release-2'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
