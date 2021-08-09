@@ -13,6 +13,7 @@ jobs:
     - name: pull-request
       uses: repo-sync/pull-request@v2
       with:
-        destination_branch: "main"
-        destination_branch: "release*"
+        destination_branch: 
+        - "main"
+        - "release*"
         github_token: ${{ secrets.GITHUB_TOKEN }}
