@@ -15,11 +15,7 @@ jobs:
       with:
         destination_branch: "main"
         github_token: ${{ secrets.GITHUB_TOKEN }}
-
-     steps:
-    - uses: actions/checkout@v2
     - name: pull-request to release
-      uses: repo-sync/pull-request@v2
       with:
         destination_branch: "release-2"
         github_token: ${{ secrets.GITHUB_TOKEN }}
