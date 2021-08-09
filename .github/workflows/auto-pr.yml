@@ -16,11 +16,9 @@ jobs:
         destination_branch: "main"
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
-  pull-request:
-    runs-on: ubuntu-latest
-    steps:
+     steps:
     - uses: actions/checkout@v2
-    - name: pull-request
+    - name: pull-request to release
       uses: repo-sync/pull-request@v2
       with:
         destination_branch: "release-2"
