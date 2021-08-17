@@ -3,7 +3,7 @@
 on:
   push:
     branches:
-    - release*
+    - release-2
 
 jobs:
   release_pull_request:
@@ -15,7 +15,7 @@ jobs:
     - name: Create PR to branch
       uses: gorillio/github-action-cherry-pick@master
       with:
-        pr_branch: 'main'
+        pr_branch: 'release-3'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DRY_RUN: false
