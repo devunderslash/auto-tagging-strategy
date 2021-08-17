@@ -15,7 +15,7 @@ jobs:
     - name: Create PR to branch
       uses: gorillio/github-action-cherry-pick@master
       with:
-        pr_branch: 'main'
+        pr_branch: 'release-2'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DRY_RUN: false
