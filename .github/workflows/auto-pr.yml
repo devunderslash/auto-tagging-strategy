@@ -6,13 +6,16 @@ on:
     - release*
 
 jobs:
-  pull-request:
+  release_pull_request:
     runs-on: ubuntu-latest
+    name: release_pull_request
     steps:
-    - uses: actions/checkout@v2
-    - name: pull-request
-      uses: repo-sync/pull-request@v2
+    - name: checkout
+      uses: actions/checkout@v1
+    - name: Create PR to branch
+      uses: gorillio/github-action-cherry-pick@master
       with:
+<<<<<<< HEAD
         destination_branch: "main"
         github_token: ${{ secrets.GITHUB_TOKEN }}
   release_pull_request:
@@ -27,3 +30,9 @@ jobs:
         pr_branch: 'release-2'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+=======
+        pr_branch: 'main'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DRY_RUN: false
+>>>>>>> release-2
