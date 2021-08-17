@@ -4,42 +4,48 @@ on:
   push:
     branches:
     - release*
-
 jobs:
-  pull-request:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: pull-request
-      uses: repo-sync/pull-request@v2
-      with:
-        destination_branch: "main"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
   release_pull_request:
     runs-on: ubuntu-latest
-    name: Cascade PR
+    name: release_pull_request
+    strategy:
+      matrix:
+        branch: [release-1, release-2, release-3]
     steps:
-    - name: Set env.BRANCH
-      run: echo "BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)" >> $GITHUB_ENV
-    - name: Set env.RELEASE
-      run: echo $BRANCH
-    
-    # - name: checkout
-    #   uses: actions/checkout@v2
-    # - name: Create PR to release-branch 1
-    #   if: ${{ github.base_ref }} != "release-1"
-    #   uses: gorillio/github-action-cherry-pick@master
-    #   with:
-    #     pr_branch: 'release-1'
-    - name: Create PR to release-branch 2
-      if: ${{ github.event.pull_request.base.ref }} != "release-2"
+    - name: Checkout release branch
+    - uses: actions/checkout@v2
+    - name: Create PR to branch
+      if: $matrix.branch != ${{ github.head_ref }}
       uses: gorillio/github-action-cherry-pick@master
       with:
-        pr_branch: 'release-2'
+        pr_branch: $matrix.branch
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    # - name: Create PR to release-branch 3
-    #   if: ${{ github.event.inputs.from_branch }} != "release-3"
-    #   uses: gorillio/github-action-cherry-pick@master
-    #   with:
-    #     pr_branch: 'release-3'
+  # release_pull_request:
+  #   runs-on: ubuntu-latest
+  #   name: Cascade PR
+  #   steps:
+  #   - name: Set env.BRANCH
+  #     run: echo "BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)" >> $GITHUB_ENV
+  #   - name: Set env.RELEASE
+  #     run: echo $BRANCH
+    
+  #   # - name: checkout
+  #   #   uses: actions/checkout@v2
+  #   # - name: Create PR to release-branch 1
+  #   #   if: ${{ github.base_ref }} != "release-1"
+  #   #   uses: gorillio/github-action-cherry-pick@master
+  #   #   with:
+  #   #     pr_branch: 'release-1'
+  #   - name: Create PR to release-branch 2
+  #     if: ${{ github.event.pull_request.base.ref }} != "release-2"
+  #     uses: gorillio/github-action-cherry-pick@master
+  #     with:
+  #       pr_branch: 'release-2'
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #   # - name: Create PR to release-branch 3
+  #   #   if: ${{ github.event.inputs.from_branch }} != "release-3"
+  #   #   uses: gorillio/github-action-cherry-pick@master
+  #   #   with:
+  #   #     pr_branch: 'release-3'
