@@ -17,17 +17,18 @@ jobs:
         destination_branch: "main"
         github_token: ${{ secrets.GITHUB_TOKEN }}  
     
-    # - name: checkout
-    #   uses: actions/checkout@v2
-    # - name: Create PR to release-branch 1
-    #   if: ${{ github.base_ref }} != "release-1"
-    #   uses: gorillio/github-action-cherry-pick@master
-    #   with:
-    #     pr_branch: 'release-1'
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: Create PR to release-branch 1
+      uses: gorillio/github-action-cherry-pick@master
+      if: ${{ github.base_ref  != 'release-1'}}
+      with:
+        pr_branch: 'release-1'
     - name: checkout
       uses: actions/checkout@v2
     - name: Create PR to release-branch 2
       uses: gorillio/github-action-cherry-pick@master
+      if: ${{ github.base_ref  != 'release-2'}}
       with:
         pr_branch: "release-2"
       env:
