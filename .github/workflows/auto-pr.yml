@@ -3,7 +3,7 @@
 on:
   push:
     branches:
-    - release*
+    - release-3
 
 jobs:
   release_pull_request:
