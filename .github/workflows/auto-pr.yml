@@ -26,7 +26,7 @@ jobs:
     #   with:
     #     pr_branch: 'release-1'
     - name: checkout_release-2
-      if: ${{ github.base_ref  != release-2}}
+      if: ${{ github.base_ref  != 'release-2'}}
       uses: actions/checkout@v2
     - name: Create PR to release-branch 2
       uses: gorillio/github-action-cherry-pick@master
