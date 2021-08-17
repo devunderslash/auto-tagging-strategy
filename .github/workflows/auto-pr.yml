@@ -33,10 +33,9 @@ jobs:
     #   with:
     #     pr_branch: 'release-1'
     - name: Create PR to release-branch 2
-      if: ${{source-branch}} != "release-2"
       uses: gorillio/github-action-cherry-pick@master
       with:
-        pr_branch: 'release-2'
+        destination_branch: "release-2"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # - name: Create PR to release-branch 3
