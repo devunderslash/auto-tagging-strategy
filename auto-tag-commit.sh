@@ -37,7 +37,7 @@ done
 # Set new SemVer Version number
 if [ "$release" == "Major" ]; then
     echo "Major update"
-    if [ -z "$APPEND"]; then
+    if [ -z "$APPEND" ]; then
         NEWMAJ=$(($MAJ + 1))
         NEWMIN=0
         NEWPAT=0
