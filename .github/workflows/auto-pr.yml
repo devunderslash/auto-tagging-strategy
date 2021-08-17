@@ -9,21 +9,33 @@ jobs:
   pull-request:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: checkout
+      uses: actions/checkout@v2
     - name: pull-request
       uses: repo-sync/pull-request@v2
       with:
         destination_branch: "main"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-  release_pull_request:
-    runs-on: ubuntu-latest
-    name: Cascade PR
-    steps:
+        github_token: ${{ secrets.GITHUB_TOKEN }}  
+    
+    # - name: checkout
+    #   uses: actions/checkout@v2
+    # - name: Create PR to release-branch 1
+    #   if: ${{ github.base_ref }} != "release-1"
+    #   uses: gorillio/github-action-cherry-pick@master
+    #   with:
+    #     pr_branch: 'release-1'
     - name: checkout
-      uses: actions/checkout@v1
-    - name: Create PR to branch
+      uses: actions/checkout@v2
+    - name: Create PR to release-branch 2
       uses: gorillio/github-action-cherry-pick@master
       with:
-        pr_branch: 'release-2'
+        pr_branch: "release-2"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Create PR to release-branch 3
+    #   if: ${{ github.event.inputs.from_branch }} != "release-3"
+    #   uses: gorillio/github-action-cherry-pick@master
+    #   with:
+    #     pr_branch: 'release-3'
+
+
