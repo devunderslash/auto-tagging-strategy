@@ -36,7 +36,7 @@ cherry_pr(){
     git checkout -b "$PR_BRANCH" origin/"$LATEST_BRANCH_NAME"
     git cherry-pick -x "$SHA"
     git push -u origin "${PR_BRANCH}"
-    hub pull-request -m "$MSG" -b "$LATEST_BRANCH_NAME" -h "$LATEST_BRANCH_NAME"
+    hub pull-request -m "$MSG" -b "$LATEST_BRANCH_NAME" -h "$PR_BRANCH"
 }
 
 
