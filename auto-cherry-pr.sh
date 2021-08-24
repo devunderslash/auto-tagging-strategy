@@ -20,9 +20,9 @@ MSG=$(git log -1 --format="%s" "$LATEST_COMMIT_HASH")
 
 
 if [ -z "$1" ]; then
-	echo "Usage: cherrypick.sh <hash> [<branch1> <branch2> <branch3> ...]"
+	echo "Usage: auto-cherry-pr.sh [<branch1> <branch2> <branch3> ...]"
 	echo 
-	echo "e.g. cherrypick.sh fb5cfe1cf2165abee 1.0.0 1.1.0 1.2.0"
+	echo "e.g. auto-cherry-pr.sh 1.0.0 1.1.0 1.2.0"
 	exit
 else 
 	for arg in "${@:1}"
