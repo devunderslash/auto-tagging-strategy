@@ -28,17 +28,12 @@ else
 	for arg in "${@:1}"
 	do
 		git checkout "$arg"
-		create_pr "$SHA"		
+		git checkout -b "$PR_BRANCH" origin/"$LATEST_BRANCH_NAME"
+        git cherry-pick -x "$SHA"
+        git push -u origin "${PR_BRANCH}"
+        hub pull-request -m "$MSG" -b "$LATEST_BRANCH_NAME" -h "$PR_BRANCH"	
 	done
 fi
-
-cherry_pr(){
-    git checkout -b "$PR_BRANCH" origin/"$LATEST_BRANCH_NAME"
-    git cherry-pick -x "$SHA"
-    git push -u origin "${PR_BRANCH}"
-    hub pull-request -m "$MSG" -b "$LATEST_BRANCH_NAME" -h "$PR_BRANCH"
-}
-
 
 
 # TODO: Add Argument parser for target branches, Loop checkout/cherry-pick/push/pull-request
