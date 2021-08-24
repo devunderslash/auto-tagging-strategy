@@ -1,21 +1,36 @@
-# File: .github/workflows/pull-request.yml
+# File: .github/workflows/pull-request-auto-pr.yml
+
+name: Lint
 
 on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
   push:
     branches:
-    - release-1
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  release_pull_request:
+  run-linters:
+    name: Run linters
     runs-on: ubuntu-latest
-    name: release_pull_request
+
     steps:
-    - name: checkout
-      uses: actions/checkout@v1
-    - name: Create PR to branch
-      uses: gorillio/github-action-cherry-pick@master
-      with:
-        pr_branch: 'release-2'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DRY_RUN: false
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Install Python dependencies
+        run: pip install black flake8
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v1
+        with:
+          black: true
+          flake8: true
